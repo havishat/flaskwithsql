@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>Login and Registration</title>
+       <style>
+           .flashes {
+               color: blue; 
+           }
+           button{
+               background-color: palegreen;
+           }
+        </style>
+    </head>
+    <body>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+        <h2>Register a new user</h2>
+        <form action='/registration' method='post'>
+            <p>Email:<input type="text" name="email"></p>
+            <p>First Name: <input type='text' name='first_name'></p>
+            <p>Last Name: <input type='text' name='last_name'></p>
+            <p>Password: <input type='text' name='password'></p>
+            <p>Confirm_password: <input type='text' name='confirm_password'></p>
+            <button type="submit" name='Button'>Button</button>
+        </form>
+        <p>Already a member ?</p>
+        <form action="/login" method="POST">
+            <p>Email:<input type="text" name="email"></p>
+            <p>Password: <input type='text' name='password'></p>
+            <a href="/login" type = "submit" class="to_register"><button>Go and log in </button></a>
+        </form>
+    </body>
+</html>
+            

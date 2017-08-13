@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CodingDojo wall</title>
+	<style>
+		button{
+			background-color: blue;
+		}
+		textarea{
+			width: 800px;
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<h1>CodingDojo Wall</h1> 
+		<h2>Welcome, {{session['user_name']}}</h2> 
+		<a href="/">log off</a>
+	</div>
+	<hr>
+	<h2>Post a message</h2>
+	<form action='/messages' method='post'>
+		<div>
+			<textarea name="user_message" id="message">
+			</textarea>
+		</div>
+		<button><input type="submit" value="Post a message"></button>
+	</form>
+	<h3>All Messages</h3>
+	{% for message in messages %}
+		<fieldset>
+			<h4>{{message['first_name']}} {{message['last_name']}} - {{message['created_at']}}</h4>
+			<p>{{message['message']}}</p>
+			<h5>Create a new comment:</h5>
+			<form action="/comments/{{message['id']}}" method="POST">
+				<p>Comment: <input type="text" name="comment"></p>
+				<input type="submit" name="">
+			</form>
+			{% for comment in message['comments'] %}
+				<fieldset>
+					<h4>{{comment['first_name']}} {{comment['last_name']}} - {{comment['created_at']}}</h4>
+					<p>{{comment['comment']}}</p>
+				</fieldset>
+			{% endfor %}
+		</fieldset>
+	{% endfor %}
+</body>
+</html>
